@@ -10,5 +10,11 @@
     "RAW_DATA_TEST": "test_clean.csv",
     "CLEAN_DATA_DIR": "synthetic_reduced/",
     "MODE": "REDUCED"
+  },
+  {
+    "RAW_DATA_TRAIN": "train_clean.csv",
+    "RAW_DATA_TEST": "test_clean.csv",
+    "CLEAN_DATA_DIR": "synthetic_overfit/",
+    "MODE": "OVERFIT"
   }
 ]

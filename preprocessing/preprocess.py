@@ -22,6 +22,9 @@ batches_train = [slice(100000*i, 100000*(i + 5)) for i in range(0, 50, 5)]
 groups_train = [0, 0, 1, 2, 3, 4, 1, 2, 4, 3]
 
 
+# TODO
+# Add automatic test set batch and group labeling
+
 batches_test = [
     slice(100000*0, 100000*1),
     slice(100000*1, 100000*2),
@@ -39,7 +42,25 @@ batches_test = [
 groups_test = [0, 2, 4, 5, 1, 3, 4, 3, 5, 2, 5, 5]
 
 
-def run_preprocessing(config):
+def run_preprocessing(config: dict):
+    """
+    Runs preprocessing pipeline.
+    :param config: Configuration dictionary (format is specified in PREPROCESSING.json).
+    Must include following fields:
+    RAW_DATA_TRAIN - relative path to train data,
+    RAW_DATA_TEST - relative path to test data,
+    CLEAN_DATA_DIR - output directory for preprocessed datasets,
+    MODE - preprocessing mode. Three modes are available:
+    1) DIVERSE - simulates groups 5 and 3 a of the signal using magics `group_0 + group_0 ~ group_5`
+    and `group_4 + group_4 ~ group_3`. Creates large and diversified dataset,
+    which helps model generalize and give better score than if trained on original data.
+    2) OVERFIT - produces death dataset. Still uses `group_4 + group_4 ~ group_3` magic, but selects only highly
+    correlated segments produced by combinatorial_synthesis() and causes a nightmare overfit on specific signal
+    patterns. The more complex your model, the more catastrophic the consequences. GroupKFold CV will lie
+    and lead you in wrong direction.
+    3) REDUCED - special mode, which uses channel reduction technique. Can be used to exploit the leak.
+    :return:
+    """
     train_path = config["RAW_DATA_TRAIN"]
     test_path = config["RAW_DATA_TEST"]
     out_dir = config["CLEAN_DATA_DIR"]
@@ -78,8 +99,6 @@ def run_preprocessing(config):
         new = train.batch >= len(batches_train)
         mean_new = train[new & (train.group == 3)].signal.mean()
 
-        to_be_fixed = (train.batch == 4) | (train.batch == 9)
-
         for b in [4, 9]:
             train.loc[train.batch == b, 'signal'] = train[train.batch == b].signal.values - train[
                 train.batch == b].signal.values.mean() + mean_new
@@ -109,10 +128,6 @@ def run_preprocessing(config):
             plt.show()
 
     if mode == 'OVERFIT':
-        cs1 = combinatorial_synthesis(train[train.group == 0], 4, flip=False, means=mean_predict, noise_factor=2 ** 0.5)
-        for sig, ch in cs1:
-            train = append_dataset(train, sig, ch, 5)
-
         synthetic = [sig_ch for sig_ch in
                      combinatorial_synthesis(train[train.group == 4], 10, flip=True, means=mean_predict,
                                              noise_factor=1.0)]
@@ -123,12 +138,12 @@ def run_preprocessing(config):
             test.loc[test.batch == b, 'signal'] = test[test.batch == b].signal.values - test[
                 test.batch == b].signal.values.mean() + mean_new
 
-        filtered = select_corr(synthetic, test[test.batch == 7].signal.values, 1.5)
+        filtered = select_corr(synthetic, synthetic[0][0], 1.5)
 
         for sig, ch in filtered:
             train = append_dataset(train, sig, ch, 3)
 
-        to_drop = (train.batch == 4) | (train.batch == 9) | (train.group == 0) | (train.group == 1)
+        to_drop = (train.batch == 4) | (train.batch == 9)
         train.drop(train[to_drop].index, inplace=True)
         train.reset_index(inplace=True, drop='index')
 
@@ -141,10 +156,6 @@ def run_preprocessing(config):
 
             distplot(train[train.group == 3].signal.values)
             distplot(test[test.group == 3].signal.values)
-            plt.show()
-
-            distplot(train[train.group == 5].signal.values)
-            distplot(test[test.group == 5].signal.values)
             plt.show()
 
             distplot(train[train.batch == 3].signal.values)
