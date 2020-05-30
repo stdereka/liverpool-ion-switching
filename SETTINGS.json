@@ -1,6 +1,6 @@
 {
   "RAW_DATA_DIR": "./data/",
-  "DATA_CLEAN_PATH": "./data/processed/",
+  "DATA_CLEAN_DIR": "./data/processed/",
   "MODEL_CHECKPOINT_DIR": "./models/",
   "LOGS_DIR": "./logs/",
   "SUBMISSION_DIR":"./submissions/"

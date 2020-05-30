@@ -1,0 +1,14 @@
+[
+  {
+    "RAW_DATA_TRAIN": "train_clean.csv",
+    "RAW_DATA_TEST": "test_clean.csv",
+    "CLEAN_DATA_DIR": "synthetic/",
+    "MODE": "DIVERSE"
+  },
+  {
+    "RAW_DATA_TRAIN": "train_clean.csv",
+    "RAW_DATA_TEST": "test_clean.csv",
+    "CLEAN_DATA_DIR": "synthetic_reduced/",
+    "MODE": "REDUCED"
+  }
+]
