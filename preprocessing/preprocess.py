@@ -7,9 +7,11 @@ import os
 import json
 
 
-DEBUG = False
+# Debug mode. Draws some graphics for sanity check
+DEBUG = True
 
 
+# Loading global variables
 with open('SETTINGS.json') as settings:
     global_config = json.load(settings)
 
@@ -61,6 +63,7 @@ def run_preprocessing(config: dict):
     3) REDUCED - special mode, which uses channel reduction technique. Can be used to exploit the leak.
     :return:
     """
+    # Reading config
     train_path = config["RAW_DATA_TRAIN"]
     test_path = config["RAW_DATA_TEST"]
     out_dir = config["CLEAN_DATA_DIR"]
@@ -68,24 +71,31 @@ def run_preprocessing(config: dict):
     mode = config["MODE"]
     assert mode in ["DIVERSE", "OVERFIT", "REDUCED"]
 
+    # Loading and labeling data
     test = pd.read_csv(os.path.join(INP_DIR, test_path))
     train = pd.read_csv(os.path.join(INP_DIR, train_path))
 
     label_batches_and_groups(train, batches_train, groups_train)
     label_batches_and_groups(test, batches_test, groups_test)
 
+    # Corrupted and normal noise slices on train group 2
     corrupted = slice(3_640_000, 3_840_000)
     healthy = slice(1_500_000, 1_700_000)
 
+    # Using regression to estimate open channels mean signal values
     cleaned = train.drop(train[corrupted].index)
     signal = cleaned[cleaned.group != 3].signal.values
     channels = cleaned[cleaned.group != 3].open_channels.values
 
     mean_predict = predict_channel_means(signal, channels, debug=DEBUG)
 
+    # Replace corrupted noise from train batch 7 by normal noise from another segment
     healthy_noise = train[healthy].signal.values - mean_predict[train[healthy].open_channels.values]
     fixed = mean_predict[train[corrupted].open_channels.values] + healthy_noise
     train.loc[train[corrupted].index, 'signal'] = fixed
+
+    # Some test batches must be aligned with synthetic data
+    batches_to_align = np.unique(test[test.group == 3].batch.values)
 
     if mode == 'DIVERSE':
         cs1 = combinatorial_synthesis(train[train.group == 0], 4, flip=False, means=mean_predict, noise_factor=2 ** 0.5)
@@ -96,6 +106,7 @@ def run_preprocessing(config: dict):
         for sig, ch in cs2:
             train = append_dataset(train, sig, ch, 3)
 
+        # Aligning original batches of group 3 with synthetic data
         new = train.batch >= len(batches_train)
         mean_new = train[new & (train.group == 3)].signal.mean()
 
@@ -103,7 +114,7 @@ def run_preprocessing(config: dict):
             train.loc[train.batch == b, 'signal'] = train[train.batch == b].signal.values - train[
                 train.batch == b].signal.values.mean() + mean_new
 
-        for b in [5, 7]:
+        for b in batches_to_align:
             test.loc[test.batch == b, 'signal'] = test[test.batch == b].signal.values - test[
                 test.batch == b].signal.values.mean() + mean_new
 
@@ -132,17 +143,20 @@ def run_preprocessing(config: dict):
                      combinatorial_synthesis(train[train.group == 4], 10, flip=True, means=mean_predict,
                                              noise_factor=1.0)]
 
+        # Aligning batches
         mean_new = np.array(np.hstack([s_c[0] for s_c in synthetic])).mean()
 
-        for b in [5, 7]:
+        for b in batches_to_align:
             test.loc[test.batch == b, 'signal'] = test[test.batch == b].signal.values - test[
                 test.batch == b].signal.values.mean() + mean_new
 
+        # Select highly correlated segments
         filtered = select_corr(synthetic, synthetic[0][0], 1.5)
 
         for sig, ch in filtered:
             train = append_dataset(train, sig, ch, 3)
 
+        # Remove original group 3 batches
         to_drop = (train.batch == 4) | (train.batch == 9)
         train.drop(train[to_drop].index, inplace=True)
         train.reset_index(inplace=True, drop='index')
@@ -186,5 +200,6 @@ def run_preprocessing(config: dict):
             distplot(test.signal.values)
             plt.show()
 
+    # Save preprocessed data
     train.to_csv(os.path.join(OUT_DIR, out_dir, "train_synthetic.csv"), index=False, float_format='%.4f')
     test.to_csv(os.path.join(OUT_DIR, out_dir, "test_synthetic.csv"), index=False, float_format='%.4f')
