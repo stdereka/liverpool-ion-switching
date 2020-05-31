@@ -1,5 +1,5 @@
 {
-  "RAW_DATA_DIR": "./data/",
+  "RAW_DATA_DIR": "./data/raw/",
   "DATA_CLEAN_DIR": "./data/processed/",
   "MODEL_CHECKPOINT_DIR": "./models/",
   "LOGS_DIR": "./logs/",

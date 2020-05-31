@@ -4,3 +4,4 @@ matplotlib
 sklearn
 seaborn
 tqdm
+joblib

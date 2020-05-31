@@ -2,6 +2,7 @@
 ./config
 ./data
 ./data/processed
+./data/raw
 ./evaluation
 ./model
 ./postprocessing

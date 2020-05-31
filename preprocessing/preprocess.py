@@ -8,7 +8,7 @@ import json
 
 
 # Debug mode. Draws some graphics for sanity check
-DEBUG = True
+DEBUG = False
 
 
 # Loading global variables

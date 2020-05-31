@@ -133,3 +133,4 @@ dmypy.json
 
 # large files
 data/
+models/
