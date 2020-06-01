@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.metrics import f1_score
+from tensorflow.keras.callbacks import Callback
 
 
 class Scaler:
@@ -144,3 +146,16 @@ def save_submission(ss_path: str, out_path: str, y_test: np.ndarray):
     submission = pd.read_csv(ss_path)
     submission["open_channels"] = np.asarray(y_test, dtype=np.int32)
     submission.to_csv(out_path, index=False, float_format="%.4f")
+
+
+# Keras callback for tracking f1 score while training
+class MacroF1(Callback):
+    def __init__(self, model, inputs, targets):
+        self.model = model
+        self.inputs = inputs
+        self.targets = np.argmax(targets, axis=2).reshape(-1)
+
+    def on_epoch_end(self, epoch, logs):
+        pred = np.argmax(self.model.predict(self.inputs), axis=2).reshape(-1)
+        score = f1_score(self.targets, pred, average='macro')
+        print(f'F1 Macro Score: {score:.5f}')
