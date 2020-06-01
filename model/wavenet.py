@@ -222,11 +222,13 @@ def run_train_cycle(train: pd.DataFrame, splits: int, feats: list,
         # Learning scheduler is used
         cb_lr_schedule = LearningRateScheduler(lambda x: lr_schedule(x, lr))
 
-        model.fit_generator(generator=train_gen,
-                            epochs=nn_epochs,
-                            callbacks=[cb_lr_schedule, MacroF1(model, valid_x, valid_y), e_s],
-                            verbose=2,
-                            validation_data=val_gen)
+        model.fit_generator(
+            generator=train_gen,
+            epochs=nn_epochs,
+            callbacks=[cb_lr_schedule, MacroF1(model, valid_x, valid_y), e_s],
+            verbose=2,
+            validation_data=val_gen
+        )
 
         # Save weights to disc
         model.save(os.path.join(save_dir, f"wavenet_fold_{n_fold}.h5"))
@@ -240,7 +242,7 @@ def run_train_cycle(train: pd.DataFrame, splits: int, feats: list,
         oof_[val_orig_idx, :] += preds_f
 
     # Save OOF array and compute Overall OOF score
-    np.save('train_wavenet_proba.npy', oof_)
+    np.save(os.path.join(save_dir, "train_wavenet_proba.npy"), oof_)
     f1_score_ = f1_score(np.argmax(train_tr, axis=2).reshape(-1), np.argmax(oof_, axis=1), average='macro')
     print(f'Training completed. oof macro f1 score : {f1_score_:1.5f}')
 

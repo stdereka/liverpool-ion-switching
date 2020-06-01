@@ -1,30 +1,45 @@
+![Image of Yaktocat](image.png)
+
+
 # Liverpool-Ion-Switching
-Liverpool Ion Switching kaggle competition 2nd place solution
+In this [repository](https://github.com/stdereka/liverpool-ion-switching) you can find a outline of how to reproduce my solution for the Liverpool-Ion-Switching competition.
+It contains all the code and pipelines I used to create my winning submissions.
+If you run into any trouble with the setup/code or have any questions please contact me at [st.dereka@gmail.com](st.dereka@gmail.com).
 
-Hello!
+## Contents
 
-Below you can find a outline of how to reproduce my solution for the <Competition Name> competition.
-If you run into any trouble with the setup/code or have any questions please contact me at <email>
+* `./preprocessing` - preprocessing scripts
+* `./data` - raw and preprocessed data
+* `./config` - configuration files (.json)
+* `./models` - serialized copies of models and their predictions
+* `./model` - train and inference pipelines of models
+* `./postprocessing` - code to write submissions and do some postprocessing
+* `./submissions` - final submissions
 
-# ARCHIVE CONTENTS
-kaggle_model.tgz          : original kaggle model upload - contains original code, additional training examples, corrected labels, etc
-comp_etc                     : contains ancillary information for prediction - clustering of training/test examples
-comp_mdl                     : model binaries used in generating solution
-comp_preds                   : model predictions
-train_code                  : code to rebuild models from scratch
-predict_code                : code to generate predictions from model binaries
+## Software requirements
 
-# HARDWARE: (The following specs were used to create the original solution)
-Ubuntu 16.04 LTS (512 GB boot disk)
-n1-standard-16 (16 vCPUs, 60 GB memory)
-1 x NVIDIA Tesla P100
+* Python 3.6.9
+* CUDA 10.1
+* Nvidia Driver 418.67
+* Python packages are detailed in `requirements.txt`. In order to install them run:
+```bash
+pip install -r requirements.txt
+```
 
-# SOFTWARE (python packages are detailed separately in `requirements.txt`):
-Python 3.5.1
-CUDA 8.0
-cuddn 7.1.4.18
-nvidia drivers v.384
--- Equivalent Dockerfile for the GPU installs: https://gitlab.com/nvidia/cuda/blob/ubuntu16.04/8.0/runtime/cudnn7/Dockerfile
+## Hardware requirements (recommended)
+
+* 30 GB free disk space
+* 20 GB RAM
+* 1 x Tesla P100-PCIE-16GB
+
+## Entry points
+
+To make reproducing easier I created following scripts:
+
+* `prepare_data.py` - reads parameters from `./config/PREPROCESSING.json` and runs preprocessing pipeline
+* `train.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs training pipelines
+* `predict.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs inference pipelines and writes submissions.
+
 
 # DATA SETUP (assumes the [Kaggle API](https://github.com/Kaggle/kaggle-api) is installed)
 # below are the shell commands used in each step, as run from the top level directory
