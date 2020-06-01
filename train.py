@@ -1,4 +1,5 @@
 from model.rfc import train_rfc
+from model.wavenet import train_wavenet
 import json
 from tqdm import tqdm
 import argparse
@@ -19,4 +20,13 @@ if __name__ == '__main__':
         print("Training RFC models...")
         for config in tqdm(configs):
             train_rfc(config)
+        print("Done")
+
+    if args.wavenet:
+        with open('./config/WAVENET.json') as settings:
+            configs = json.load(settings)
+
+        print("Training wavenet models...")
+        for config in tqdm(configs):
+            train_wavenet(config)
         print("Done")

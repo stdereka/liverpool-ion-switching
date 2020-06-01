@@ -4,7 +4,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class Scaler:
-    def fit(self, x, y):
+    def fit(self, x, y=None):
         """
         Computes Scaler parameters and updates corresponding fields.
         :param x: Data.
@@ -13,7 +13,7 @@ class Scaler:
         """
         raise NotImplementedError
 
-    def transform(self, x, y):
+    def transform(self, x, y=None):
         """
         Performs transformation on new data.
         :param x: Data. Must include 'signal' column.

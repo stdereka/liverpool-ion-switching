@@ -108,10 +108,12 @@ def predict_rfc(config):
     gc.collect()
 
     # Test prediction is a mean of N_SPLITS models trained on different folds
-    test_pred = np.zeros((len(test), n_classes), np.float32)
+    test_pred = np.zeros((len(test), n_classes))
     for n in range(n_splits):
         model = joblib.load(os.path.join(MOD_DIR, out_dir, f"rfc_fold_{n}.joblib"))
         test_pred += model.predict_proba(test)
+        del model
+        gc.collect()
     test_pred /= n_splits
 
     np.save(os.path.join(MOD_DIR, out_dir, "test_rfc_proba.npy"), test_pred)

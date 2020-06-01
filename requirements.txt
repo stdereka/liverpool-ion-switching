@@ -1,7 +1,12 @@
-numpy
-pandas
-matplotlib
-sklearn
-seaborn
-tqdm
-joblib
+# Principal requirements. It is highly recommended to have exactly these versions.
+numpy==1.18.1
+pandas==1.0.3
+scikit-learn==0.22.2.post1
+joblib==0.14.1
+tensorflow==2.2.0
+tensorflow_addons==0.8.3
+
+# Minor requirements. Versions can vary, it will not affect the result.
+matplotlib==3.2.1
+seaborn==0.10.0
+tqdm==4.31.1

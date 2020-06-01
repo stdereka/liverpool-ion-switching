@@ -1,0 +1,47 @@
+[
+  {
+    "CLEAN_TRAIN_DATA_PATH": "synthetic/train_synthetic.csv",
+    "CLEAN_TEST_DATA_PATH": "synthetic/test_synthetic.csv",
+    "CHECKPOINT_DIR": "wavenet_1/",
+    "N_SPLITS": 5,
+    "N_CLASSES": 11,
+    "EPOCHS": 130,
+    "NNBATCHSIZE": 16,
+    "GROUP_BATCH_SIZE": 4000,
+    "SEED": 321,
+    "LR": 0.001,
+    "MODEL_VERSION": 1,
+    "SCALER": "minmax",
+    "RFC_PROBA_DIR": "rfc/"
+  },
+  {
+    "CLEAN_TRAIN_DATA_PATH": "synthetic/train_synthetic.csv",
+    "CLEAN_TEST_DATA_PATH": "synthetic/test_synthetic.csv",
+    "CHECKPOINT_DIR": "wavenet_2/",
+    "N_SPLITS": 5,
+    "N_CLASSES": 11,
+    "EPOCHS": 130,
+    "NNBATCHSIZE": 16,
+    "GROUP_BATCH_SIZE": 4000,
+    "SEED": 321,
+    "LR": 0.001,
+    "MODEL_VERSION": 1,
+    "SCALER": "standard",
+    "RFC_PROBA_DIR": "rfc/"
+  },
+  {
+    "CLEAN_TRAIN_DATA_PATH": "synthetic_reduced/train_synthetic.csv",
+    "CLEAN_TEST_DATA_PATH": "synthetic_reduced/test_synthetic.csv",
+    "CHECKPOINT_DIR": "wavenet_reduced/",
+    "N_SPLITS": 5,
+    "N_CLASSES": 6,
+    "EPOCHS": 130,
+    "NNBATCHSIZE": 16,
+    "GROUP_BATCH_SIZE": 4000,
+    "SEED": 42,
+    "LR": 0.001,
+    "MODEL_VERSION": 2,
+    "SCALER": "standard",
+    "RFC_PROBA_DIR": "rfc_reduced/"
+  }
+]
