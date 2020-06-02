@@ -20,7 +20,6 @@ class DataGenerator(Sequence):
         self.mode = mode
         self.labels = labels
         self.n_classes = labels.shape[2]
-        print(labels.shape)
         self.data = data
         self.n_channels = data.shape[2]
         self.shuffle = shuffle
