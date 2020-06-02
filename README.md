@@ -22,10 +22,10 @@ Kaggle [kernel](https://www.kaggle.com/stdereka/2nd-place-solution-preprocessing
 
 ## Software requirements
 
-* Python 3.6.9
-* CUDA 10.1
-* Nvidia Driver 418.67
-* Python packages are detailed in `requirements.txt`. In order to install them run:
+1. Python 3.6.9
+2. CUDA 10.1
+3. Nvidia Driver 418.67
+4. Python packages are detailed in `requirements.txt`. In order to install them run:
 ```bash
 pip install -r requirements.txt
 ```
@@ -34,9 +34,9 @@ pip install -r requirements.txt
 These requirements should be fulfilled if you want to retrain all models from scratch.
 Running prediction with pretrained models consumes less resources - you don't even need a GPU.
 
-* 30 GB free disk space
-* 20 GB RAM
-* 1 x Tesla P100-PCIE-16GB
+1. 30 GB free disk space
+2. 20 GB RAM
+3. 1 x Tesla P100-PCIE-16GB
 
 ## Entry points
 

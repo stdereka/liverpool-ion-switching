@@ -4,7 +4,7 @@ import json
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import f1_score
-from model.utils import ShiftedFeatureMaker, ColumnDropper, add_category, read_input, save_submission
+from model.utils import ShiftedFeatureMaker, ColumnDropper, add_category, read_input
 import os
 import joblib
 

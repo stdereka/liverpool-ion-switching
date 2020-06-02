@@ -135,19 +135,6 @@ def read_input(data_path: str):
     return data
 
 
-def save_submission(ss_path: str, out_path: str, y_test: np.ndarray):
-    """
-    Writes submission in format specified by competition host.
-    :param ss_path: Path to sample submission.
-    :param out_path: Path to output file.
-    :param y_test: Numpy array with prediction.
-    :return:
-    """
-    submission = pd.read_csv(ss_path)
-    submission["open_channels"] = np.asarray(y_test, dtype=np.int32)
-    submission.to_csv(out_path, index=False, float_format="%.4f")
-
-
 # Keras callback for tracking f1 score while training
 class MacroF1(Callback):
     def __init__(self, model, inputs, targets):

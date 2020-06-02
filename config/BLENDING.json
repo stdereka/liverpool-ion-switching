@@ -1,0 +1,13 @@
+[
+  {
+    "TEST_PREDICTIONS_PATHS": [
+      "wavenet_1/test_wavenet_proba.npy",
+      "wavenet_2/test_wavenet_proba.npy"
+    ],
+    "OOF_PREDICTIONS_PATHS": [
+      "wavenet_1/train_wavenet_proba.npy",
+      "wavenet_2/train_wavenet_proba.npy"
+    ],
+    "OUT_DIR": "wavenet_blend/"
+  }
+]
