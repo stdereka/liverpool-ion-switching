@@ -19,6 +19,8 @@ class DataGenerator(Sequence):
         assert mode in ['train', 'val']
         self.mode = mode
         self.labels = labels
+        self.n_classes = labels.shape[2]
+        print(labels.shape)
         self.data = data
         self.n_channels = data.shape[2]
         self.shuffle = shuffle
@@ -61,7 +63,7 @@ class DataGenerator(Sequence):
         """
         # Initialization
         x = np.empty((self.batch_size, self.dim, self.n_channels))
-        y = np.empty((self.batch_size, self.dim, 11))
+        y = np.empty((self.batch_size, self.dim, self.n_classes))
 
         # Generate data
         for i, idx in enumerate(indexes):
