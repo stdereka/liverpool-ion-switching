@@ -19,6 +19,7 @@ Kaggle [kernel](https://www.kaggle.com/stdereka/2nd-place-solution-preprocessing
 * `./model` - train and inference pipelines of models
 * `./postprocessing` - code to write submissions and do some postprocessing
 * `./submissions` - final submissions
+* `./evaluation` - utilities to compute model's CV metrics.
 
 ## Software requirements
 
@@ -26,9 +27,8 @@ Kaggle [kernel](https://www.kaggle.com/stdereka/2nd-place-solution-preprocessing
 2. CUDA 10.1
 3. Nvidia Driver 418.67
 4. Python packages are detailed in `requirements.txt`. In order to install them run:
-```bash
-pip install -r requirements.txt
-```
+
+        pip install -r requirements.txt
 
 ## Hardware requirements (recommended)
 These requirements should be fulfilled if you want to retrain all models from scratch.
@@ -50,12 +50,40 @@ To make reproducing easier I created following scripts:
 
 Follow these steps:
 
-* Clone the repo:
-```commandline
-git clone https://github.com/stdereka/liverpool-ion-switching.git
-cd liverpool-ion-switching
-```
-* Download data and pretrained models. If you are the competition host, you can skip this step - all necessary data is in the package:
-```commandline
-./download_data.sh
-```
+1. Clone the repo:
+
+        git clone https://github.com/stdereka/liverpool-ion-switching.git
+        cd liverpool-ion-switching
+
+2. Download the data and pretrained models. Assumed, that you have [Kaggle API](https://github.com/Kaggle/kaggle-api) installed
+and `kaggle.json` is generated and placed in appropriate directory.
+If you are the competition host, you can skip this step - all necessary data is in the package.
+Run:
+
+        ./download_data.sh
+
+3. Run preprocessing pipeline:
+
+        python prepare_data.py
+
+4. In order to reproduce two final submissions, run inference pipeline.
+Depending on your hardware, it will take around 10 minutes. Reproducing 
+results is extremely simple: you don't even need a GPU. Two generated
+submissions in `./submissions` directory reproduce my final LB score
+with a reasonable margin. Run following command:
+
+        python predict.py --all
+
+5. Retraining the models from scratch will take much more time and 
+hardware resources. If you want to do it I suggest two options.
+
+   1. Retrain only wavenet models on GPU (2nd layer of stacking).
+   It takes 6-9 hours. Run:
+   
+            python train.py --wavenet
+   
+   2. Retrain all the models including RFCs and wavenets. It can take
+   more than one day with hardware setup I described above. Run:
+   
+            python train.py --rfc --wavenet
+
