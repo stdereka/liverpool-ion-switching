@@ -45,6 +45,7 @@ To make reproducing easier I created following scripts:
 * `prepare_data.py` - reads parameters from `./config/PREPROCESSING.json` and runs preprocessing pipeline
 * `train.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs training pipelines
 * `predict.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs inference pipelines and writes submissions.
+* ``
 
 ## How to reproduce the results?
 
@@ -73,7 +74,7 @@ Run:
 Depending on your hardware, it will take around 10 minutes. Reproducing 
 results is extremely simple: you don't even need a GPU. Two generated
 submissions in `./submissions` directory reproduce my final LB score
-with a reasonable margin. Run following command:
+within a reasonable margin. Run following command:
 
         python predict.py --all
 

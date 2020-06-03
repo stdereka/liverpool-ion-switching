@@ -2,7 +2,7 @@ from model.rfc import predict_rfc
 from model.wavenet import predict_wavenet
 from postprocessing.blending import blend_predictions
 from evaluation.eval import print_model_quality_report
-from postprocessing.submission import save_submission
+from postprocessing.submission import save_submission, inject_residual_prediction
 import json
 from tqdm import tqdm
 import argparse
@@ -55,4 +55,6 @@ if __name__ == '__main__':
     if args.sub or args.all:
         print("Writing submission...")
         save_submission("wavenet_blend/test_proba.npy", "submission.csv")
+        inject_residual_prediction("submission.csv", "rfc_reduced/test_rfc_proba.npy",
+                                   "synthetic_reduced/residual.npy", "submission_injected.csv")
         print("Done")
