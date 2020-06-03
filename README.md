@@ -1,5 +1,4 @@
-![Image of Yaktocat](image.png)
-
+![](image.png)
 
 # Liverpool Ion Switching
 In this [repository](https://github.com/stdereka/liverpool-ion-switching) you can find an outline of how to reproduce my 2nd place solution for [Liverpool Ion Switching](https://www.kaggle.com/c/liverpool-ion-switching/) competition.
@@ -29,6 +28,9 @@ Kaggle [kernel](https://www.kaggle.com/stdereka/2nd-place-solution-preprocessing
 4. Python packages are detailed in `requirements.txt`. In order to install them run:
 
         pip install -r requirements.txt
+
+5. Ubuntu 18.04 LTS (it is not necessary to have exactly this OS installed, you can run the
+solution almost on any modern Linux distribution)
 
 ## Hardware requirements (recommended)
 These requirements should be fulfilled if you want to retrain all models from scratch.
@@ -71,7 +73,7 @@ Run:
         python prepare_data.py
 
 4. In order to reproduce two final submissions, run inference pipeline.
-Depending on your hardware, it will take around 10 minutes. Reproducing 
+Depending on your hardware, it will take about 10 minutes. Reproducing 
 results is extremely simple: you don't even need a GPU. Two generated
 submissions in `./submissions` directory reproduce my final LB score
 within a reasonable margin. Run following command:
