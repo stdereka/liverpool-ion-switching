@@ -48,7 +48,10 @@ To make reproducing easier I created following scripts:
 
 ## How to reproduce the results?
 
-Follow these steps:
+The most simple way to reproduce the results is to run
+`./run_all_in_colab.ipynb` on Google Colab. I prepared this entry point
+to make the process as simple as possible. If you want to reproduce the
+results on your local machine, follow these steps:
 
 1. Clone the repo:
 
