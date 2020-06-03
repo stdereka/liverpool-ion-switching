@@ -19,7 +19,7 @@ Kaggle [kernel](https://www.kaggle.com/stdereka/2nd-place-solution-preprocessing
 * `./model` - train and inference pipelines of models
 * `./postprocessing` - code to write submissions and do some postprocessing
 * `./submissions` - final submissions
-* `./evaluation` - utilities to compute model's CV metrics.
+* `./evaluation` - utilities to compute model's CV metrics
 
 ## Software requirements
 
