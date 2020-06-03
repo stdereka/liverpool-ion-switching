@@ -45,7 +45,7 @@ To make reproducing easier I created following scripts:
 * `prepare_data.py` - reads parameters from `./config/PREPROCESSING.json` and runs preprocessing pipeline
 * `train.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs training pipelines
 * `predict.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs inference pipelines and writes submissions.
-* ``
+* `run_all_in_colab.ipynb` - allows to reproduce all the results on Google Colab
 
 ## How to reproduce the results?
 
