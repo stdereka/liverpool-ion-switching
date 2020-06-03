@@ -20,4 +20,5 @@ echo "Done"
 
 echo "Extracting files..."
 unzip models.zip
+rm models.zip
 echo "Done"
