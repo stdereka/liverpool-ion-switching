@@ -5,6 +5,8 @@ In this [repository](https://github.com/stdereka/liverpool-ion-switching) you ca
 It contains all the code and pipelines I used to create my winning submissions.
 If you run into any trouble with the setup/code or have any questions please contact me at [st.dereka@gmail.com](st.dereka@gmail.com).
 
+In `./summary.pdf` you can find a detailed model description.
+
 [Post](https://www.kaggle.com/c/liverpool-ion-switching/discussion/153991), which explains my approach to the challenge.
 
 Kaggle [kernel](https://www.kaggle.com/stdereka/2nd-place-solution-preprocessing-tricks) illustrating my preprocessing and data augmentation strategies.
@@ -25,7 +27,7 @@ Kaggle [kernel](https://www.kaggle.com/stdereka/2nd-place-solution-preprocessing
 1. Python 3.6.9
 2. CUDA 10.1
 3. Nvidia Driver 418.67
-4. Python packages are detailed in `requirements.txt`. In order to install them run:
+4. Python packages are detailed in `./requirements.txt`. In order to install them run:
 
         pip install -r requirements.txt
 
@@ -39,15 +41,16 @@ Running prediction with pretrained models consumes less resources - you don't ev
 1. 30 GB free disk space
 2. 20 GB RAM
 3. 1 x Tesla P100-PCIE-16GB
+4. Intel Core i7-3720QM
 
 ## Entry points
 
 To make reproducing easier I created following scripts:
 
-* `prepare_data.py` - reads parameters from `./config/PREPROCESSING.json` and runs preprocessing pipeline
-* `train.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs training pipelines
-* `predict.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs inference pipelines and writes submissions.
-* `run_all_in_colab.ipynb` - allows to reproduce all the results on Google Colab
+* `./prepare_data.py` - reads parameters from `./config/PREPROCESSING.json` and runs preprocessing pipeline
+* `./train.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs training pipelines
+* `./predict.py` - reads parameters from `./config/RFC.json` and `./config/WAVENET.json`, runs inference pipelines and writes submissions.
+* `./run_all_in_colab.ipynb` - allows to reproduce all the results on Google Colab
 
 ## How to reproduce the results?
 
