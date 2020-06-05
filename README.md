@@ -41,7 +41,7 @@ Running prediction with pretrained models consumes less resources - you don't ev
 1. 30 GB free disk space
 2. 20 GB RAM
 3. 1 x Tesla P100-PCIE-16GB
-4. Intel Core i7-3720QM
+4. 1 x Intel Core i7-3720QM
 
 ## Entry points
 
