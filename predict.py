@@ -11,10 +11,10 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--rfc", action="store_true", help="Run rfc training pipeline")
 parser.add_argument("--wavenet", action="store_true", help="Run wavenet training pipeline")
-parser.add_argument("--blend", action="store_true", help="Run wavenet training pipeline")
-parser.add_argument("--eval", action="store_true", help="Run wavenet training pipeline")
-parser.add_argument("--sub", action="store_true", help="Run wavenet training pipeline")
-parser.add_argument("--all", action="store_true", help="Run wavenet training pipeline")
+parser.add_argument("--blend", action="store_true", help="Blend predictions")
+parser.add_argument("--eval", action="store_true", help="Show model quality report")
+parser.add_argument("--sub", action="store_true", help="Write submissions")
+parser.add_argument("--all", action="store_true", help="Run everything")
 args = parser.parse_args()
 
 

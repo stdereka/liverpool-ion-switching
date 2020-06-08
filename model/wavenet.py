@@ -148,7 +148,7 @@ def lr_schedule(epoch: int, lr: float):
 
 def run_train_cycle(train: pd.DataFrame, splits: int, feats: list,
                     nn_epochs: int, nn_batch_size: int, seed: int,
-                    lr: float, save_dir: str, version: int, n_classes: int, augs: dict):
+                    lr: float, save_dir: str, version: int, n_classes: int, augs: list):
     """
     Wavenet training cycle. Runs GroupKFold crossvalidation. Saves model for each fold.
     :param train: DataFrame with training data.
@@ -161,6 +161,7 @@ def run_train_cycle(train: pd.DataFrame, splits: int, feats: list,
     :param save_dir: Directory for storing models and OOF predictions.
     :param version: Model version. Specified in nn.py.
     :param n_classes: Number of classes.
+    :param augs: Augmentation pipeline. Format is specified in augs.py.
     :return:
     """
     seed_everything(seed)

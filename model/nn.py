@@ -113,7 +113,7 @@ MODELS = {
 }
 
 
-def get_model(version, shape, n_classes, loss, opt):
+def get_model(version: int, shape: tuple, n_classes: int, loss: tf.losses.Loss, opt: tf.optimizers.Optimizer):
     """
     Builds and compiles wavenet model of given version.
     :param version: Model version. Must be 1, 2 or 3.
