@@ -66,7 +66,20 @@ def noise(x, y, sigma=0.01):
 
 
 # Example of augmentation pipelines. It is a list of (augmentation, probability_to_apply_augmentation) tuple.
-AUGS = [
+AUGS_1 = [
     (flip, 0.35),
     (shift, 0.35)
 ]
+
+
+AUGS_2 = [
+    (flip, 0.35),
+    (lambda x, y: shift(x, y, sigma=0.03), 0.35)
+]
+
+
+# Dict for storing augmentation pipelines
+AUGS = {
+    1: AUGS_1,
+    2: AUGS_2
+}

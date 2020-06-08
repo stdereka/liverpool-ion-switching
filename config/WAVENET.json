@@ -12,7 +12,8 @@
     "LR": 0.001,
     "MODEL_VERSION": 1,
     "SCALER": "minmax",
-    "RFC_PROBA_DIR": "rfc/"
+    "RFC_PROBA_DIR": "rfc/",
+    "AUGS_VERSION": 1
   },
   {
     "CLEAN_TRAIN_DATA_PATH": "synthetic/train_synthetic.csv",
@@ -27,7 +28,8 @@
     "LR": 0.001,
     "MODEL_VERSION": 1,
     "SCALER": "standard",
-    "RFC_PROBA_DIR": "rfc/"
+    "RFC_PROBA_DIR": "rfc/",
+    "AUGS_VERSION": 1
   },
   {
     "CLEAN_TRAIN_DATA_PATH": "synthetic_reduced/train_synthetic.csv",
@@ -42,6 +44,7 @@
     "LR": 0.001,
     "MODEL_VERSION": 2,
     "SCALER": "standard",
-    "RFC_PROBA_DIR": "rfc_reduced/"
+    "RFC_PROBA_DIR": "rfc_reduced/",
+    "AUGS_VERSION": 2
   }
 ]

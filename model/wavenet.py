@@ -148,7 +148,7 @@ def lr_schedule(epoch: int, lr: float):
 
 def run_train_cycle(train: pd.DataFrame, splits: int, feats: list,
                     nn_epochs: int, nn_batch_size: int, seed: int,
-                    lr: float, save_dir: str, version: int, n_classes: int):
+                    lr: float, save_dir: str, version: int, n_classes: int, augs: dict):
     """
     Wavenet training cycle. Runs GroupKFold crossvalidation. Saves model for each fold.
     :param train: DataFrame with training data.
@@ -200,7 +200,7 @@ def run_train_cycle(train: pd.DataFrame, splits: int, feats: list,
         print(f'Our validation dataset shape is {valid_x.shape}')
 
         # Data generators
-        train_gen = DataGenerator(train_x, train_y, batch_size=nn_batch_size, shuffle=True, mode='train', augs=AUGS)
+        train_gen = DataGenerator(train_x, train_y, batch_size=nn_batch_size, shuffle=True, mode='train', augs=augs)
         val_gen = DataGenerator(valid_x, valid_y, batch_size=nn_batch_size, shuffle=False, mode='val', augs=None)
 
         # Early stopping configuration
@@ -264,7 +264,8 @@ def train_wavenet(config: dict):
     SEED - random seed,
     LR - learning rate,
     MODEL_VERSION - version of wavenet to use. Read documentation for nn.py to know more,
-    RFC_PROBA_DIR - storing directory of RFC model. If None, wavenet will be trained without RFC probabilities.
+    RFC_PROBA_DIR - storing directory of RFC model. If None, wavenet will be trained without RFC probabilities,
+    AUGS_VERSION - augmentation pipeline version.
     :return:
     """
     # Read config
@@ -280,6 +281,7 @@ def train_wavenet(config: dict):
     lr = config["LR"]
     version = config["MODEL_VERSION"]
     rfc_proba_dir = config["RFC_PROBA_DIR"]
+    augs_version = config["AUGS_VERSION"]
 
     os.makedirs(os.path.join(MOD_DIR, out_dir), exist_ok=True)
 
@@ -309,7 +311,7 @@ def train_wavenet(config: dict):
     # Launch training process
     print(f'Training Wavenet model with {n_splits} folds of GroupKFold Started...')
     run_train_cycle(train, n_splits, features, epochs, nnbatchsize, seed, lr,
-                    os.path.join(MOD_DIR, out_dir), version, n_classes)
+                    os.path.join(MOD_DIR, out_dir), version, n_classes, AUGS[augs_version])
 
     print('Training completed...')
 
