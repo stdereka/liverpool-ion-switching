@@ -55,6 +55,6 @@ if __name__ == '__main__':
     if args.sub or args.all:
         print("Writing submission...")
         save_submission("wavenet_blend/test_proba.npy", "submission.csv")
-        inject_residual_prediction("submission.csv", "rfc_reduced/test_rfc_proba.npy",
+        inject_residual_prediction("submission.csv", "wavenet_reduced/test_wavenet_proba.npy",
                                    "synthetic_reduced/residual.npy", "submission_injected.csv")
         print("Done")
